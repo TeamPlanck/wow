@@ -1,0 +1,64 @@
+@import "blaze.css";
+
+html {
+    overflow-x: hidden;
+}
+
+#cover {
+    width: 100%;
+    height: 200px;
+    background: var(--primary);
+}
+
+#wow-auth-1,  #wow-auth-2, #wow-auth-3 {
+    margin-top: -32px!important;
+}
+
+.auth-p {
+    text-align: center;
+    margin: 0 !important;
+}
+
+.auth-btn {
+    border-radius: 0 0 16px 16px;
+}
+
+.show {
+    display: grid;
+}
+
+.hide {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.post {
+    position: relative;
+    box-shadow: var(--shadow-1)!important;
+    width: auto;
+    height: 100%;
+	background: #FFF;
+    border-radius: 16px;
+    padding: 0px;
+    margin: auto;
+    display: block;
+    line-height: 0px;
+}
+
+.post-thumb {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    border-radius: 16px;
+}
+
+#auth-link {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 32px;
+}

@@ -1,0 +1,26 @@
+
+CREATE TABLE `planck`.`wow_file` (
+	`file_id` INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`file_user` INT(10) NOT NULL,
+	`file_dest` varchar(128) NOT NULL,
+	FOREIGN KEY (`file_user`) REFERENCES `auth_user`(`user_id`) ON DELETE CASCADE
+)
+ENGINE = InnoDB;
+
+-----------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `planck`.`wow_post` ( 
+	`post_id` INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`post_user` INT(10) NOT NULL,
+	`post_team` INT(10) NOT NULL,
+	`post_title` varchar(128) NOT NULL,
+	`post_info` varchar(512) NOT NULL,
+	`post_thumb` varchar(128) NOT NULL,
+	`post_file` INT(10) NOT NULL,
+	`post_archive` BOOLEAN NOT NULL,
+	`post_price` INT(3) NOT NULL,
+	`post_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (`post_user`) REFERENCES `auth_user`(`user_id`) ON DELETE CASCADE
+) 
+ENGINE = InnoDB;
+
