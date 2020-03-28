@@ -1,2 +1,2 @@
 # wow
-New plateform for designers
+New place to get Graphics design content with great ui
