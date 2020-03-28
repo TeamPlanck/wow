@@ -18,6 +18,7 @@
 		
 		<!-- JS Files -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://kit.fontawesome.com/15cc6c2068.js" crossorigin="anonymous"></script>
 		<script src="./assets/js/script.js"></script>
 
 		<script>
@@ -27,16 +28,27 @@
 	</head>
 	
 	<body>
-	<div header="fixed">
-		<a href="index.php"> 
-			<img src="./assets/img/icon.png" height="64px" width="64px" alt="Icon ET" class="animated bounceInLeft"/>
+	<div header>
+		<a href="index.php" > 
+			<img src="./assets/img/icon.png" height="64px" width="64px" alt="Icon ET" class="header-icon animated bounceInLeft"/>
 		</a>
 
+		<?php 
+			if ( isset( $_SESSION['login'] ) && $_SESSION['login'] == true ) {
+				$user_url = "profile.php?username=%27".$_SESSION['username']."%27";
+				echo '<a href="'.$user_url.'"><div class="header-profile" style="background-image: url('.$dp.');"></div></a>';
+			}
+		?>
+
 		<div class="header-link"><?php 
-			if($is_login == false) {
+			if( isset( $_SESSION['login'] ) && $_SESSION['login'] == false) {
 				echo '<a href="./signup.php" btn="flate">GET STARTED</a>'; 
 			} else {
-				echo '<a href="#" btn="flate">UPLOAD</a>'; 
+				if ( isset($flag_upload) && $flag_upload == true ) {
+					echo '<a href="index.php" btn="flate">CANCLE</a>';
+				} else {
+					echo '<a href="upload.php" btn="flate">UPLOAD</a>';
+				}
 			}
 		?></div>
 	</div>

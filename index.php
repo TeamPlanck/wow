@@ -1,42 +1,28 @@
 <?php 
 
-namespace Planck;
-session_start();
-
-	# echo htmlspecialchars($_SERVER['PHP_SELF']);
-	#Set variables
-	$page_title = "WOW";
-
-	if ( isset($_COOKIE['login']) ) {
-		$is_login = $_COOKIE['login'];
-	} else {
-		$is_login = false;
-	}
+	include 'includes/common.php';
+    include 'includes/header.php';
+    include 'includes/posts.php';
 	
-	//include '../planck/includes/Database.class.php';
-	//include '../planck/includes/Auth.class.php';
 	
-	//$db = new Database();
-	//$auth = new Auth($db);
-	
-	//$post = $auth->getPost();
+	$app->siteCount();
 
-	include 'includes/header.php';
-	include 'includes/post.php';
 ?>
 
 </section>
 <script>
 	window.onload = function() {
+	
+	//showMessage('Dont go outside without any reason, stay safe', 1);
 
 	<?php if($is_login == true) {
 		$string = "showMessage('Welcome back, {$_COOKIE['username']}', 0)";
-		echo $string;
+		//echo $string;
 	} 
 	?>
 };
 
 </script>
 </body>
-</html>
 
+<?php include 'includes/footer.php'; ?>

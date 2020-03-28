@@ -51,11 +51,20 @@ html, body {
 	margin: 0;
 	padding: 0;
 	line-height: 1.8;
-	font-family: Roboto;
-	background: #fefefe;
+	font-family: Roboto!important;
+	background: #FFF;
+	scroll-behavior: smooth;
 }
 
+body::-webkit-scrollbar {
+	width: 8px;
+  }
 
+  body::-webkit-scrollbar-thumb {
+	border-radius: 16px;
+	background-color: var(--primary);
+	outline: 1px solid var(--primary);
+  }
 
 .mg-y-32 { margin: 32px 0; }
 .pd-x-16 { padding: 0 16px; }
@@ -63,6 +72,8 @@ html, body {
 .pd-y-16 { padding: 16px 0; }
 .pd-y-32 { padding: 32px 0; }
 .pd-16 { padding: 16px; }
+.pd-32 { padding: 32px; }
+.mg-8 { margin: 8px; }
 .mg-16 { margin: 16px; }
 .mg-32 { margin: 32px; }
 
@@ -83,13 +94,26 @@ html, body {
 
 .row, [row] {
 	display: grid;
-	grid-gap: 32px;
+	grid-gap: 16px;
 	width: auto;
 	height: auto;
 }
 
+.gap-none {
+	grid-gap: 0!important;
+}
+
+.gap-32 {
+	grid-gap: 32px!important;
+}
+
 .txt-center {
 	text-align: center;
+}
+
+[display~="inline"] {
+	display: inline-block;
+	position: relative;
 }
 
 .cl-1, .cl, c[l], [cl~="1"] { grid-template-columns: 1fr; }	
@@ -109,8 +133,9 @@ html, body {
 	width: auto;
 	height: auto;
 	margin: 32px;
-	padding: 32px 0;
+	padding: 16px 0px;
 	z-index: -1000;
+	margin-top: 64px;
 }
 
 header {
@@ -138,32 +163,22 @@ header .link {
 
 .card, [card] {
 	position: relative;
-	width: auto;
-	background: #FFF;
-	border-radius: 8px;
-	min-width: 360px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .07);
-}
-
-header {
-	position: fixed;
-	background: #FFF;
 	width: 100%;
-	top: 0;
-	height: 56px;
-	padding: 0 32px;
-	z-index: 1000;
+	background: #FFF;
+	border-radius: 16px;
+	min-width: auto;
+	border: 2px solid #fafafa;
 }
 
 /* ~~ Header */
 header, .header, [header] {
 	position: relative;
 	width: auto;
-	height: 64px;
+	height: 80px;
 	background: #FFF;
 	color: #FFF;
 	padding: 0 16px;
-	box-shadow: var(--shadow-1);
+	border-bottom: 2px solid #fafafa;
 	z-index: 1000;
 }
 
@@ -174,28 +189,35 @@ header, .header, [header] {
 }
 
 .header-link {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
-	margin-right: 8px;
+	margin-right: 64px;
 	text-align: right;
-	margin-top: 12px;
+	margin-top: 20px;
 }
 
+.header-icon {
+	margin-top: 8px;
+	margin-left: 42px;
+}
 
 .heading, [heading] {
 	font-size: larger;
 	color: var(--primary-dark);
+	margin: 0;
+	margin-top: 8px;
 }
 
 .subheading, [subheading] {
 	font-size: normal;
 	color: #000;
 	opacity: 0.36;
+	margin: 0;
+
 }
 
 .title, [title] {
-	text-align: center;
 	font-size: normal;
 	color: var(--primary);
 }
@@ -212,13 +234,16 @@ form, .form, [form] {
 	background: #FFF;
 	border-radius: 16px;
 	box-shadow: 0 7px 12px rgba(0, 0, 0, .05);
+	margin: 0;
 }
 
 input[type="text"],
 input[type="number"],
 input[type="password"],
 input[type="email"],
-input[type="tel"] {
+input[type="tel"],
+input[type="file"],
+textarea {
 	position: relative;
 	width: auto;
 	height: 8px;
@@ -229,11 +254,24 @@ input[type="tel"] {
 	border-bottom: 1px solid #BDBDBD;
 }
 
+textarea {
+	height: auto !important;
+	resize: none;
+	font-family: Roboto!important;
+}
+
+input[type="file"] {
+	border: none!important;
+}
+
+
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
-input[type="tel"]:focus {
+input[type="tel"]:focus,
+input[type="file"]:focus,
+textarea:focus {
 	border-bottom: 2px solid var(--primary);
 }
 
@@ -255,9 +293,8 @@ input[type="tel"]:focus {
 	z-index: 3;
 }
 
-.fab {
+.fab-btn {
 	position: relative;
-	left: calc(50% - 24px);
 	bottom: -16px;
 	height: 48px;
 	width: 48px;
@@ -279,7 +316,7 @@ input[type="button"],
 .btn {
 	position: relative;
 	width: auto;
-	max-width: 296px!important;
+	max-width: 100%!important;
 	height: 8px;
 	padding: 16px;
 	margin: 0;
@@ -334,7 +371,7 @@ input[type="button"],
     background-color: #FFF;
 	display: block;
 	box-shadow: var(--shadow-1);
-	z-index: 18;
+	z-index: 3000;
 }
 
 .msgBox p {
@@ -397,7 +434,8 @@ input[type="button"],
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) { 
     .container, [container] {
-		margin: 128px;
+		margin: 64px;
+		margin-top: 32px;
 	}
 	
 	.xl-2, [xl~="2"] { grid-template-columns: 1fr 1fr; }

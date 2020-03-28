@@ -1,3 +1,10 @@
+<?php 
+    namespace Wow;
+    session_start();
+
+    include 'includes/Database.class.php';
+?>
+
 <!doctype html>
 <html>
 	<head>
@@ -21,25 +28,22 @@
         </section>
       
         <div class="row cl-1 show" id="wow-auth-1" max-width="320" pos="center">
-			<form class="txt-center" name="auth_card_1" method="post" action="otp.php">
+			<form class="txt-center" name="auth_card" method="post" action="request.php">
                 <p heading style="margin-top: 24px!important;" class="auth-p">WOW</p>
                 <p subheading class="auth-p">first party auth</p>
 				<div class="mg-32 row cl-1">
-                    <input type="text" placeholder="Full Name" name="auth_name" value=""/>
-                    <div class="row cl-1">
-                        <input type="number" min="0" max="299" placeholder="Country Code" name="auth_cc" value=""/>    
-                        <input type="number" placeholder="Mobile Number" maxlength="10" name="auth_no" value=""/>
-                    </div>
-                    <input type="text" placeholder="Email" name="auth_email" value=""/>
-					
+                    <input type="text" onchange="textEmptyValue(this)" placeholder="Full Name" name="auth_name" value=""/>
+                    <input type="text" onchange="textEmptyValue(this)" placeholder="Email" name="auth_email" value=""/>
+                    <input type="text" onchange="textEmptyValue(this)" placeholder="Set Username" name="auth_username" value=""/>
+                    <input type="password" onchange="textEmptyValue(this)" placeholder="Set Password" name="auth_password" value=""/>
+                    <input type="hidden" value="wow_signup" name="request" />
                 </div>
-                <div btn class="auth-btn" id="auth-1-btn">GET OTP</div>
+                <div btn class="auth-btn" id="auth-1-btn">CONTINUE</div>
 			</form>
         </div>
 
         <div center id="auth-link">
             <a href="login.php" btn="flate" id="auth-login" class="block">Already have an account</a>
-            <div btn="flate" id="auth-otp" class="hide">Resend OTP</div>
         </div>
 
         <script src="assets/js/script.js"></script>
@@ -48,14 +52,13 @@
             var btn_1 = document.querySelector('#auth-1-btn');
 
             btn_1.addEventListener('click', (e) => { 
-                var name = document.auth_card_1.auth_name.value;
-                var cc = document.auth_card_1.auth_cc.value;
-                var no = document.auth_card_1.auth_no.value;
-                var email = document.auth_card_1.auth_email.value;
-                var fullname = name.split(' ');
+                var name = document.auth_card.auth_name.value;
+                var email = document.auth_card.auth_email.value;
+                var username = document.auth_card.auth_username.value;
+                var password = document.auth_card.auth_password.value;
 
-                if ( !(name =="" || cc =="" || no =="" || email =="") ) {
-                    document.forms['auth_card_1'].submit();
+                if ( !(name =="" || email =="" || username =="" || password =="") ) {
+                    document.forms['auth_card'].submit();
                 } else {
                     showMessage('Fill all the details',1);
                 }

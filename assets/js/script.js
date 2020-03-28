@@ -25,3 +25,12 @@ function showMessage( msgText, msgType) {
         }, 1000);
     }, 3000);
 }
+
+function textEmptyValue(input) {
+    var border = "border-bottom: 2px solid red";
+    if ( input.value == "" ) {
+        input.setAttribute('style', border);
+    } else {
+        input.setAttribute('style', '');
+    }
+}
